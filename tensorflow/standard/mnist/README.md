@@ -63,9 +63,9 @@ If you want to download the files directly, you can use the following commands:
 ```shell
 mkdir data && cd data
 curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/train-labels-idx1-ubyte.gz
-curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/train-images-idx1-ubyte.gz
+curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/train-images-idx3-ubyte.gz
+curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/t10k-labels-idx1-ubyte.gz
 curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/t10k-images-idx3-ubyte.gz
-curl -O https://storage.googleapis.com/tensorflow/tf-keras-datasets/t10k-labels-idx3-ubyte.gz
 ```
 
 * **Upload the data to a Google Cloud Storage bucket**
@@ -78,9 +78,9 @@ bucket (names must be globally unique) and place the data in there:
 ```shell
 gsutil mb gs://your-bucket-name
 gsutil cp -r data/train-labels-idx1-ubyte.gz gs://your-bucket-name/train-labels-idx1-ubyte.gz
-gsutil cp -r data/train-images-idx1-ubyte.gz gs://your-bucket-name/train-images-idx1-ubyte.gz
-gsutil cp -r data/train-labels-idx3-ubyte.gz gs://your-bucket-name/t10k-images-idx3-ubyte.gz
-gsutil cp -r data/train-images-idx3-ubyte.gz gs://your-bucket-name/t10k-labels-idx3-ubyte.gz
+gsutil cp -r data/train-images-idx3-ubyte.gz gs://your-bucket-name/train-images-idx3-ubyte.gz
+gsutil cp -r data/t10k-labels-idx1-ubyte.gz gs://your-bucket-name/t10k-labels-idx1-ubyte.gz
+gsutil cp -r data/t10k-images-idx3-ubyte.gz gs://your-bucket-name/t10k-images-idx3-ubyte.gz
 ```
 
 # Training
