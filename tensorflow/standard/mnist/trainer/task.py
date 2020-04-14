@@ -19,12 +19,12 @@ from __future__ import print_function
 import argparse
 
 import numpy as np
-from . import model
-from . import utils
+from trainer import model
+from trainer import utils
 
 import tensorflow as tf
 from tensorflow.contrib.training.python.training import hparam
-
+import hypertune
 
 def get_args():
   """Argument parser.
