@@ -70,7 +70,7 @@ def get_args():
     help='number of records to read during each training step, default=128')
   parser.add_argument(
     '--learning-rate',
-    default=.01,
+    default=.001,
     type=float,
     help='learning rate for gradient descent, default=.001')
   parser.add_argument(
@@ -94,8 +94,8 @@ def train_and_evaluate(hparams):
                          test_labels_file=hparams.test_labels_file)
 
   # Scale values to a range of 0 to 1.
-  train_images = train_images / 255.0
-  test_images = test_images / 255.0
+  train_images = (train_images / 255.0).astype(np.float32)
+  test_images = (test_images / 255.0).astype(np.float32)
 
   # Define training steps.
   train_steps = hparams.num_epochs * len(
@@ -139,6 +139,7 @@ if __name__ == '__main__':
 
   args = get_args()
   tf.logging.set_verbosity(args.verbosity)
+  print(tf.__version__)
 
   hparams = hparam.HParams(**args.__dict__)
   train_and_evaluate(hparams)

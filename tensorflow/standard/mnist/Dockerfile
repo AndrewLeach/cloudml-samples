@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Set base Google Cloud Tensorflow base image.
-FROM gcr.io/deeplearning-platform-release/tf-gpu.1-14
+FROM gcr.io/deeplearning-platform-release/tf-gpu.1-15:latest
 
 # Install dependencies.
 RUN pip install cloudml-hypertune

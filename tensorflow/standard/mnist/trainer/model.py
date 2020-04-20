@@ -19,8 +19,6 @@ from __future__ import print_function
 import numpy as np
 
 import tensorflow as tf
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.layers import Flatten
 from tensorflow.python.keras import models
 
 tf.logging.set_verbosity(tf.logging.INFO)
@@ -38,9 +36,17 @@ def keras_estimator(model_dir, config, learning_rate):
     A keras.Model
   """
   model = models.Sequential()
-  model.add(Flatten(input_shape=(28, 28)))
-  model.add(Dense(128, activation=tf.nn.relu))
-  model.add(Dense(10, activation=tf.nn.softmax))
+  model.add(tf.keras.layers.Conv2D(
+      filters=8,
+      kernel_size=4,
+      strides=(2, 2),
+      padding='valid',
+      activation='relu',
+      input_shape=(28, 28, 1)))
+  model.add(tf.keras.layers.MaxPooling2D(pool_size=2))
+  model.add(tf.keras.layers.Flatten())
+  model.add(tf.keras.layers.Dense(32, activation='relu'))
+  model.add(tf.keras.layers.Dense(10, activation='softmax'))
 
   # Compile model with learning parameters.
   optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
@@ -89,7 +95,7 @@ def serving_input_fn():
   Returns:
     A tf.estimator.export.ServingInputReceiver
   """
-  feature_placeholder = tf.placeholder(tf.float32, [None, 784])
+  feature_placeholder = tf.placeholder(tf.float32, [None, 28, 28, 1])
   features = feature_placeholder
   return tf.estimator.export.TensorServingInputReceiver(features,
                                                         feature_placeholder)
