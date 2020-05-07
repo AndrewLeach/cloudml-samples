@@ -21,6 +21,8 @@ import numpy as np
 import os
 import subprocess
 
+from google.cloud import storage
+
 
 WORKING_DIR = os.getcwd()
 FASHION_MNIST_TRAIN = 'train-images-idx3-ubyte.gz'
@@ -39,6 +41,7 @@ def download_files_from_gcs(source, destination):
   Returns:
     A list to the local data paths where the data is downloaded.
   """
+  client = storage.Client()
   local_file_names = [destination]
   gcs_input_paths = [source]
 
@@ -48,8 +51,8 @@ def download_files_from_gcs(source, destination):
     ]
   for i, gcs_input_path in enumerate(gcs_input_paths):
     if gcs_input_path:
-      subprocess.check_call(
-        ['gsutil', 'cp', gcs_input_path, raw_local_files_data_paths[i]])
+        with open(raw_local_files_data_paths[i], 'wb') as f:
+            client.download_blob_to_file(gcs_input_path, f)
 
   return raw_local_files_data_paths
 

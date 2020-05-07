@@ -17,6 +17,7 @@ FROM gcr.io/deeplearning-platform-release/tf-gpu.1-15:latest
 
 # Install dependencies.
 RUN pip install cloudml-hypertune
+RUN pip install google-cloud-storage
 
 # Copy trainer to root.
 WORKDIR /home
